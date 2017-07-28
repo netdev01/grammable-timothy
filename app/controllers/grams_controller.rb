@@ -1,7 +1,6 @@
 class GramsController < ApplicationController
 
 	def index
-
 	end
 
 	def new
@@ -9,7 +8,14 @@ class GramsController < ApplicationController
 	end
 
 	def create
-
+		Gram.create(gram_params)
+    redirect_to root_path
 	end
+
+  private
+
+  def gram_params
+    params.require(:gram).permit(:message)
+  end
 
 end
