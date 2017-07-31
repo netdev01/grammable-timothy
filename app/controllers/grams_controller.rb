@@ -9,6 +9,13 @@ class GramsController < ApplicationController
 		@gram = Gram.new
 	end
 
+	def destroy
+		@gram = Gram.find_by_id(params[:id])
+		return render_not_found if @gram.blank?
+		@gram.delete
+	 	redirect_to root_path
+	end
+
 	def edit
 		@gram = Gram.find_by_id(params[:id])
 		render_not_found if @gram.blank?
