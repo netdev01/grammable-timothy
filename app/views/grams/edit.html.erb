@@ -1,0 +1,11 @@
+  <%= @gram.message  %>
+
+  <div class="booyah-box col-6 offset-3">
+	<h1 class="booyah-box">Edit Gram</h1>
+	<%= simple_form_for @gram do |f| %>
+		<%= f.input :message %>
+		<br />          
+		<%= link_to "Cancel", :back, class: 'btn btn-secondary' %>
+		<%= f.submit 'Update', class: 'btn btn-primary' %>
+	<% end %>
+</div>
