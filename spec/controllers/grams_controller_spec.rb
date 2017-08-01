@@ -7,7 +7,7 @@ RSpec.describe GramsController, type: :controller do
     it "shouldn't let unauthenticated users destroy a gram" do
       gram = FactoryGirl.create(:gram)
       delete :destroy, params: { id: gram.id }
-      expect(response).to redirect_to new_user_session_path
+      expect(response).to redirect_to edit_gram_path(gram)
     end
 
     it "should allow a user to destroy grams" do

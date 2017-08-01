@@ -17,18 +17,24 @@ class GramsController < ApplicationController
 	    render :new, status: :unprocessable_entity
 	  end
 	end
-	
+
 	def destroy
 		@gram = Gram.find_by_id(params[:id])
-		return new_user_session_path if @gram.user != current_user
-		return render_not_found if @gram.blank?
-		@gram.delete
-	 	redirect_to root_path
+		if @gram.user != current_user
+			redirect_to edit_gram_path(@gram), alert: 'Only the author can delete this gram.'
+		else
+			return render_not_found if @gram.blank?
+			@gram.delete
+		 	redirect_to root_path
+		end
 	end
 
 	def edit
 		@gram = Gram.find_by_id(params[:id])
-		render_not_found if @gram.blank?
+		return render_not_found if @gram.blank?		
+		if @gram.user != current_user
+			redirect_to root_path, alert: 'Only the author can edit this gram.'
+		end
 	end
 
 	def update
