@@ -1,5 +1,9 @@
-<h1>Grams!</h1>
+<div class="booyah-box col-6 offset-3">
+	<% @grams.each do |gram| %>
+		<div class="booyah-box" col-10 offset-1>
+			<h1><%= link_to gram.message , edit_gram_path(gram) %></h1><br />
+		</div>
+	<% end %>
+</div>
 
-<% @grams.each do |gram| %>
-  <%= gram.message  %>
-<% end %>
+

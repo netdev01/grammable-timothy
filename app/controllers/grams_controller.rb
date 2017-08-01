@@ -1,5 +1,5 @@
 class GramsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destory]
 
 	def index
 		@grams = Gram.all
@@ -9,8 +9,18 @@ class GramsController < ApplicationController
 		@gram = Gram.new
 	end
 
+	def create
+	  @gram = current_user.grams.create(gram_params)
+	  if @gram.valid?
+	    redirect_to root_path
+	  else
+	    render :new, status: :unprocessable_entity
+	  end
+	end
+	
 	def destroy
 		@gram = Gram.find_by_id(params[:id])
+		return new_user_session_path if @gram.user != current_user
 		return render_not_found if @gram.blank?
 		@gram.delete
 	 	redirect_to root_path
@@ -37,14 +47,6 @@ class GramsController < ApplicationController
 		render_not_found if @gram.blank?
 	end
 
-	def create
-	  @gram = current_user.grams.create(gram_params)
-	  if @gram.valid?
-	    redirect_to root_path
-	  else
-	    render :new, status: :unprocessable_entity
-	  end
-	end
 
   private
 
