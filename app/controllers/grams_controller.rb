@@ -19,13 +19,14 @@ class GramsController < ApplicationController
 	end
 
 	def destroy
-		@gram = Gram.find_by_id(params[:id])
+		@gram = Gram.find_by_id(params[:id])	
+    return render_not_found if @gram.blank?
 		if @gram.user != current_user
-			redirect_to edit_gram_path(@gram), alert: 'Only the author can delete this gram.'
+			# redirect_to edit_gram_path(@gram), alert: 'Only the author can delete this gram.'
+	    return render_not_found(:forbidden)
 		else
-			return render_not_found if @gram.blank?
 			@gram.delete
-		 	redirect_to root_path
+			redirect_to root_path
 		end
 	end
 
@@ -33,13 +34,15 @@ class GramsController < ApplicationController
 		@gram = Gram.find_by_id(params[:id])
 		return render_not_found if @gram.blank?		
 		if @gram.user != current_user
-			redirect_to root_path, alert: 'Only the author can edit this gram.'
+			# redirect_to root_path, alert: 'Only the author can edit this gram.'
+			return render_not_found(:forbidden)
 		end
 	end
 
 	def update
 		@gram = Gram.find_by_id(params[:id])
 		return render_not_found if @gram.blank?
+	  return render_not_found(:forbidden) if @gram.user != current_user
 		@gram.update_attributes(gram_params)
 		if @gram.valid?
 	 		redirect_to root_path
@@ -65,8 +68,8 @@ class GramsController < ApplicationController
     params.require(:gram).permit(:message)
   end
 
-  def render_not_found
-    render plain: 'Not Found :(', status: :not_found
+  def render_not_found(status=:not_found)
+    render plain: "#{status.to_s.titleize} :(", status: status
   end
 
 end
