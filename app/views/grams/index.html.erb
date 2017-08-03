@@ -2,6 +2,7 @@
 	<% @grams.each do |gram| %>
 		<div class="booyah-box" col-10 offset-1>
 			<h1><%= link_to gram.message , edit_gram_path(gram) %></h1><br />
+			<%= image_tag gram.image %>
 		</div>
 	<% end %>
 </div>
