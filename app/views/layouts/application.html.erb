@@ -5,56 +5,29 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,100,300,600,700' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
 
-	  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-	    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-	      <span class="navbar-toggler-icon"></span>
-	    </button>
-	    <%= link_to 'Grams', root_path, class: 'navbar-brand' %>
-
-	    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-	      <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-	        <li class="nav-item">
-	          <%= link_to new_gram_path, class: 'nav-link' do %>
-	            <i class="fa fa-plus-circle"></i>
-	            New Gram
-	          <% end %>
-	        </li>
-	      </ul>
-	      <ul class="navbar-nav">
-	        <% if user_signed_in? %>
-	          <li class="nav-item">
-	            <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
-	          </li>
+	  <div class="top-nav">
+	    <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+	      <div class="brand float-left">
+	        Grammable
+	      </div>
+	      <div class="add float-right">
+	        <% if current_user %>
+        		<%= link_to "New Post", new_gram_path %>
+	          <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
 	        <% else %>
-	          <li class="nav-item">
-	            <%= link_to 'Log In', new_user_session_path, class: 'nav-link' %>
-	          </li>
-	          <li class="nav-item">
-	            <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %>
-	          </li>
+	          <%= link_to "Sign In", new_user_session_path %>
+	          <%= link_to "Sign Up", new_user_registration_path %>
 	        <% end %>
-	      </ul>
+	      </div>
 	    </div>
-	  </nav>
-
-<!-- 	  <% if current_user %>
-	  You're signed in as <%= current_user.email %>.
-	  <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-	  <% else %>
-	  <%= link_to "Sign In", new_user_session_path %>
-	  <%= link_to "Sign Up", new_user_registration_path %>
-	  <% end %> -->
-
-		<% if notice.present? %>
-		  <p class="alert alert-info"><%= notice %></p>
-		<% end %>
-		<% if alert.present? %>
-		  <p class="alert alert-danger"><%= alert %></p>
-		<% end %>
+	    <br class="clear-fix" />
+	  </div>
 
     <%= yield %>
     

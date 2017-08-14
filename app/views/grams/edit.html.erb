@@ -1,10 +1,10 @@
-	  <div class="booyah-box col-6 offset-3">
-		<h1 class="booyah-box">Edit Gram</h1>
-		<%= simple_form_for @gram do |f| %>
-			<%= f.input :message %>
-			<br />          
-			<%= link_to "Cancel", :back, class: 'btn btn-secondary' %>
-	  	<%= link_to 'Destory', gram_path(@gram), method: :delete, data: {confirm: 'Are you sure you want to delete this?'}, class: 'btn btn-danger' %>
-			<%= f.submit 'Update', class: 'btn btn-primary' %>
-		<% end %>
-	</div>
+<div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 card form">
+  <h2>Edit Gram</h2>
+
+  <%= simple_form_for @gram do |f| %>
+    <%= f.input :message %>
+    <%= f.input :image %>
+    <%= f.submit 'Update', class: 'my-btn' %>
+  <% end %>
+
+</div>
